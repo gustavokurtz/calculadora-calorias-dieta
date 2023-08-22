@@ -46,13 +46,13 @@
       if (!isNaN(proteinas) && !isNaN(carboidratos) && !isNaN(gorduras)) {
         errorMessageElement.textContent = '';
 
-        const response = await fetch('/calcular-dieta', {
+        const response = await fetch('http://0.0.0.0:8080/calcular-dieta', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ proteinas, carboidratos, gorduras }),
-        });
+        }).catch(err => console.log(err));
 
         const resultado = await response.json();
 

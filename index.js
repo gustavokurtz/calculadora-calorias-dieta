@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 5000;
+const port = 8080;
 
 // Configurar o body-parser para interpretar os corpos das requisições como JSON
 app.use(bodyParser.json());
@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // Rota principal
-app.get('/', (req, res) => {
+app.get('/', (_, res) => {
   res.send('Bem-vindo ao calculador de dieta!');
 });
 
@@ -33,7 +33,7 @@ app.post('/calcular-dieta', (req, res) => {
     totalCalorias,
   };
 
-  res.json(resultado);
+  return res.json(resultado);
 });
 
 
