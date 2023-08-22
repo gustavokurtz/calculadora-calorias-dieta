@@ -79,6 +79,15 @@
   }
 #error-message {
     margin-top: 20px; /* Adicione a margem superior desejada */
-  }  
+  }
   
+@media (max-width: 600px) {
+    body {
+      padding: 10px;
+    }
+  }
+  
+
+
+
   

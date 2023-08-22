@@ -36,6 +36,8 @@ app.post('/calcular-dieta', (req, res) => {
   res.json(resultado);
 });
 
+
+
 // Inicia o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
