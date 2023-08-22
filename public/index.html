@@ -1,58 +1,59 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Calculadora de Dieta</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <h1>Calculadora de Calorias de Dieta</h1>
-  <form id="dieta-form">
-    <label for="proteinas">Proteínas (g):</label>
-    <input type="number" id="proteinas" name="proteinas"><br><br>
+  <head>
+    <title>Calculadora de Dieta</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Calculadora de Calorias de Dieta</h1>
+    <form id="dieta-form">
+      <label for="proteinas">Proteínas (g):</label>
+      <input type="number" id="proteinas" name="proteinas"><br><br>
 
-    <label for="carboidratos">Carboidratos (g):</label>
-    <input type="number" id="carboidratos" name="carboidratos"><br><br>
+      <label for="carboidratos">Carboidratos (g):</label>
+      <input type="number" id="carboidratos" name="carboidratos"><br><br>
 
-    <label for="gorduras">Gorduras (g):</label>
-    <input type="number" id="gorduras" name="gorduras"><br><br>
+      <label for="gorduras">Gorduras (g):</label>
+      <input type="number" id="gorduras" name="gorduras"><br><br>
 
-    <button type="submit">Calcular</button>
-  </form>
+      <button type="submit">Calcular</button>
+    </form>
 
-  <p id="error-message" style="color: red;"></p>
+    <p id="error-message" style="color: red;"></p>
 
-  <div id="resultado">
-    <h2>Resultado</h2>
-    <p>Calorias de Proteínas: <span id="caloriasProteinas"></span></p>
-    <p>Calorias de Carboidratos: <span id="caloriasCarboidratos"></span></p>
-    <p>Calorias de Gorduras: <span id="caloriasGorduras"></span></p>
-    <p>Total de Calorias: <span id="totalCalorias"></span></p>
-  </div>
-
- 
+    <div id="resultado">
+      <h2>Resultado</h2>
+      <p>Calorias de Proteínas: <span id="caloriasProteinas"></span></p>
+      <p>Calorias de Carboidratos: <span id="caloriasCarboidratos"></span></p>
+      <p>Calorias de Gorduras: <span id="caloriasGorduras"></span></p>
+      <p>Total de Calorias: <span id="totalCalorias"></span></p>
+    </div>
 
 
 
-  <script>
-    document.getElementById('dieta-form').addEventListener('submit', async (event) => {
-      event.preventDefault();
 
-      const proteinas = parseFloat(document.getElementById('proteinas').value);
-      const carboidratos = parseFloat(document.getElementById('carboidratos').value);
-      const gorduras = parseFloat(document.getElementById('gorduras').value);
 
-      const errorMessageElement = document.getElementById('error-message');
+    <script>
+      document.getElementById('dieta-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-      if (!isNaN(proteinas) && !isNaN(carboidratos) && !isNaN(gorduras)) {
+        const proteinas = parseFloat(document.getElementById('proteinas').value);
+        const carboidratos = parseFloat(document.getElementById('carboidratos').value);
+        const gorduras = parseFloat(document.getElementById('gorduras').value);
+
+        const errorMessageElement = document.getElementById('error-message');
+
+        if (isNaN(proteinas) || isNaN(carboidratos) || isNaN(gorduras)) {
+          return errorMessageElement.textContent = 'Por favor, preencha todos os campos com valores numéricos válidos.';
+        } 
+
         errorMessageElement.textContent = '';
 
         const response = await fetch('/calcular-dieta', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ proteinas, carboidratos, gorduras }),
-        });
+        })
 
         const resultado = await response.json();
 
@@ -60,15 +61,7 @@
         document.getElementById('caloriasCarboidratos').textContent = resultado.caloriasCarboidratos;
         document.getElementById('caloriasGorduras').textContent = resultado.caloriasGorduras;
         document.getElementById('totalCalorias').textContent = resultado.totalCalorias;
-      } else {
-        errorMessageElement.textContent = 'Por favor, preencha todos os campos com valores numéricos válidos.';
-      }
-    });
-  </script>
-</body>
-</html>
-
-  
-  
-</body>
+      });
+    </script>
+  </body>
 </html>
