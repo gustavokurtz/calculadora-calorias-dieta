@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Rota principal
 app.get('/', (_, res) => {
