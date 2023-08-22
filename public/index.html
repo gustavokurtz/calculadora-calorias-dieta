@@ -43,26 +43,26 @@
 
       const errorMessageElement = document.getElementById('error-message');
 
-      if (!isNaN(proteinas) && !isNaN(carboidratos) && !isNaN(gorduras)) {
-        errorMessageElement.textContent = '';
+      if (isNaN(proteinas) || isNaN(carboidratos) || isNaN(gorduras)) {
+        return errorMessageElement.textContent = 'Por favor, preencha todos os campos com valores numéricos válidos.';
+      } 
 
-        const response = await fetch('http://0.0.0.0:8080/calcular-dieta', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ proteinas, carboidratos, gorduras }),
-        }).catch(err => console.log(err));
+      errorMessageElement.textContent = '';
 
-        const resultado = await response.json();
+      const response = await fetch(`/calcular-dieta`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ proteinas, carboidratos, gorduras }),
+      }).catch(err => console.log(err));
 
-        document.getElementById('caloriasProteinas').textContent = resultado.caloriasProteinas;
-        document.getElementById('caloriasCarboidratos').textContent = resultado.caloriasCarboidratos;
-        document.getElementById('caloriasGorduras').textContent = resultado.caloriasGorduras;
-        document.getElementById('totalCalorias').textContent = resultado.totalCalorias;
-      } else {
-        errorMessageElement.textContent = 'Por favor, preencha todos os campos com valores numéricos válidos.';
-      }
+      const resultado = await response.json();
+
+      document.getElementById('caloriasProteinas').textContent = resultado.caloriasProteinas;
+      document.getElementById('caloriasCarboidratos').textContent = resultado.caloriasCarboidratos;
+      document.getElementById('caloriasGorduras').textContent = resultado.caloriasGorduras;
+      document.getElementById('totalCalorias').textContent = resultado.totalCalorias;
     });
   </script>
 </body>
