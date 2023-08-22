@@ -1,11 +1,9 @@
 const express = require('express');
-const cors = require('cors');
 
 const app = express();
 const port = 8080;
 
 // Configurar o body-parser para interpretar os corpos das requisições como JSON
-app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded());
 
@@ -43,3 +41,5 @@ app.post('/calcular-dieta', (req, res) => {
 
 // Inicia o servidor
 app.listen(port);
+
+module.exports = app;
