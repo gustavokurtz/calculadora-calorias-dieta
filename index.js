@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path')
 
 const app = express();
 const port = 8080;
@@ -7,11 +8,12 @@ const port = 8080;
 app.use(express.json());
 app.use(express.urlencoded());
 
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 // Rota principal
 app.get('/', (_, res) => {
-  res.send('Bem-vindo ao calculador de dieta!');
+  // res.send('Bem-vindo ao calculador de dieta!');
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 // Rota para receber os dados da dieta e calcular as calorias
