@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path')
 
 const app = express();
-const port = 8080;
+const port = 5000;
 
 // Configurar o body-parser para interpretar os corpos das requisições como JSON
 app.use(express.json());
