@@ -1,11 +1,11 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 
 const app = express();
 const port = 8080;
 
 // Configurar o body-parser para interpretar os corpos das requisições como JSON
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded());
 
 app.use(express.static('public'));
 
@@ -16,6 +16,8 @@ app.get('/', (_, res) => {
 
 // Rota para receber os dados da dieta e calcular as calorias
 app.post('/calcular-dieta', (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
   const { proteinas, carboidratos, gorduras } = req.body;
 
   // Calcula as calorias dos macronutrientes
@@ -37,8 +39,7 @@ app.post('/calcular-dieta', (req, res) => {
 });
 
 
+console.log(process.env.IP);
 
 // Inicia o servidor
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
-});
+app.listen(port, process.env.IP);
