@@ -18,7 +18,7 @@ app.get('/', (_, res) => {
 
 // Rota para receber os dados da dieta e calcular as calorias
 app.post('/calcular-dieta', (req, res) => {
-  res.setHeader('Content-Type', 'text/html');
+  res.setHeader('Content-Type', 'application/json');
   res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
   const { proteinas, carboidratos, gorduras } = req.body;
 
